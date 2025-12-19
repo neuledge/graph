@@ -1,8 +1,9 @@
-import type {
-  NeuledgeGraphMatch,
-  NeuledgeGraphRegistry,
-  NeuledgeGraphResolver,
-  NeuledgeGraphSuggestion,
+import {
+  type NeuledgeGraphMatch,
+  NeuledgeGraphMatcher,
+  type NeuledgeGraphRegistry,
+  type NeuledgeGraphResolver,
+  type NeuledgeGraphSuggestion,
 } from "@neuledge/graph-router";
 import {
   cosineSimilarity,
@@ -16,12 +17,16 @@ export class NeuledgeGraphMemoryRegistry implements NeuledgeGraphRegistry {
   private embeddingModel: EmbeddingModel;
   private registry: {
     [Template in string]: {
-      resolver: NeuledgeGraphResolver<Template>;
+      matcher: NeuledgeGraphMatcher<Template>;
+      resolver: NeuledgeGraphResolver<Template, object>;
       embedding: Embedding;
     };
   };
   private registerQueue: {
-    [Template in string]: NeuledgeGraphResolver<Template>;
+    [Template in string]: {
+      matcher: NeuledgeGraphMatcher<Template>;
+      resolver: NeuledgeGraphResolver<Template, object>;
+    };
   };
   private registerPromise?: Promise<void>;
   private defaultTrashhold: number;
@@ -40,18 +45,33 @@ export class NeuledgeGraphMemoryRegistry implements NeuledgeGraphRegistry {
   }
 
   async match(args: { path: string }): Promise<NeuledgeGraphMatch | null> {
-    for (const { resolver } of Object.values(this.registry)) {
-      const match = resolver.match(args);
+    for (const { matcher } of Object.values(this.registry)) {
+      const match = matcher.match(args);
       if (match) return match;
     }
 
     return null;
   }
 
-  async register<Template extends string>(
-    resolver: NeuledgeGraphResolver<Template>,
-  ): Promise<void> {
-    this.registerQueue[resolver.template] = resolver;
+  async resolve<Template extends string, Value extends object>(
+    match: NeuledgeGraphMatch<Template>,
+  ): Promise<Value> {
+    const entry = this.registry[match.template];
+    if (!entry) {
+      throw new ReferenceError(`Unknown template: ${match.template}`);
+    }
+
+    return entry.resolver(match.params) as Promise<Value>;
+  }
+
+  async register<Template extends string, Value extends object>(args: {
+    template: Template;
+    resolver: NeuledgeGraphResolver<Template, Value>;
+  }): Promise<void> {
+    this.registerQueue[args.template] = {
+      matcher: new NeuledgeGraphMatcher(args.template),
+      resolver: args.resolver,
+    };
 
     if (!this.registerPromise) {
       this.registerPromise = this.registerAsync();
@@ -92,10 +112,11 @@ export class NeuledgeGraphMemoryRegistry implements NeuledgeGraphRegistry {
         const embedding = embeddings[i]!;
 
         // biome-ignore lint/style/noNonNullAssertion: already verified
-        const resolver = queue[template]!;
+        const entry = queue[template]!;
 
         this.registry[template] = {
-          resolver,
+          matcher: entry.matcher,
+          resolver: entry.resolver,
           embedding,
         };
       }
@@ -120,11 +141,11 @@ export class NeuledgeGraphMemoryRegistry implements NeuledgeGraphRegistry {
     const trashhold = args.trashhold ?? this.defaultTrashhold;
     const limit = args.limit ?? this.defaultLimit;
 
-    return Object.values(this.registry)
+    return Object.entries(this.registry)
       .map(
-        (r): NeuledgeGraphSuggestion => ({
-          resolver: r.resolver,
-          similarity: cosineSimilarity(r.embedding, embedding),
+        ([template, entry]): NeuledgeGraphSuggestion => ({
+          template,
+          similarity: cosineSimilarity(entry.embedding, embedding),
         }),
       )
       .filter((s) => s.similarity >= trashhold)

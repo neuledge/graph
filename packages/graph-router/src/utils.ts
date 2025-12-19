@@ -1,4 +1,4 @@
-import type { NeuledgeGraphTemplateParams } from "./match.js";
+import type { NeuledgeGraphTemplateParams } from "./matcher.js";
 
 export const normalizePath = (path: string) =>
   path.split(/\.+/g).filter(Boolean).map(encodePathPart).join(".");

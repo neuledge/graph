@@ -36,7 +36,7 @@ export class NeuledgeGraphRouter {
 
     if (match) {
       try {
-        const value = await match.resolver.resolve({ params: match.params });
+        const value = await this.registry.resolve(match);
         return {
           status: "matched",
           value,
@@ -47,7 +47,7 @@ export class NeuledgeGraphRouter {
         }
 
         const suggestions = await this.registry.suggestions({
-          path: match.resolver.template,
+          path: match.template,
         });
 
         return {
@@ -55,7 +55,7 @@ export class NeuledgeGraphRouter {
           reasonCode: "INVALID_IDENTIFIER",
           reasonHint: error.message,
           suggestions: suggestions.map((r) => ({
-            template: r.resolver.template,
+            template: r.template,
           })),
         };
       }
@@ -70,7 +70,7 @@ export class NeuledgeGraphRouter {
       reasonCode: "UNKNOWN_PATH",
       reasonHint: "Try using one of the suggested templates",
       suggestions: suggestions.map((r) => ({
-        template: r.resolver.template,
+        template: r.template,
       })),
     };
   }

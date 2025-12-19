@@ -71,6 +71,9 @@
   "dependencies": {
     "ai": "^5.0.0"
   },
+  "peerDependencies": {
+    "@neuledge/graph-router": "^0.1.0"
+  },
   "tsx": {
     "require": [
       "tsconfig-paths/register"

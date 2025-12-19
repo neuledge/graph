@@ -1,12 +1,14 @@
-import type { NeuledgeGraphMatch } from "./match.js";
-import type { NeuledgeGraphResolver } from "./resolver.js";
+import type { NeuledgeGraphMatch } from "./matcher.js";
 
 export interface NeuledgeGraphRegistry {
   match(args: { path: string }): Promise<NeuledgeGraphMatch | null>;
+  resolve<Template extends string, Value extends object>(
+    match: NeuledgeGraphMatch<Template>,
+  ): Promise<Value>;
   suggestions(args: { path: string }): Promise<NeuledgeGraphSuggestion[]>;
 }
 
 export interface NeuledgeGraphSuggestion<Template extends string = string> {
-  resolver: NeuledgeGraphResolver<Template>;
+  template: Template;
   similarity: number;
 }
