@@ -1,0 +1,14 @@
+{
+  "@schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@total-typescript/tsconfig/tsc/no-dom/library",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "baseUrl": ".",
+    "paths": {
+      "@neuledge/graph-router": ["src/index.js"],
+      "@neuledge/graph-router/*": ["src/*"]
+    },
+    "noEmit": true
+  },
+  "include": ["src", "examples", "evals"]
+}

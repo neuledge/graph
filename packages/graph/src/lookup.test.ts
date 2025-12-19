@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { apiFetch } from "./api-fetch.js";
 import { NeuledgeError } from "./error.js";
 import type { NeuledgeGraph } from "./index.js";
-import { type GraphLookupMatchedResponse, lookup } from "./lookup.js";
+import { lookup, type NeuledgeGraphLookupMatchedResponse } from "./lookup.js";
 
 vi.mock("./api-fetch.js", () => ({
   apiFetch: vi.fn(),
@@ -16,7 +16,7 @@ describe("lookup", () => {
   });
 
   it("should call apiFetch with correct arguments", async () => {
-    const mockResponse: GraphLookupMatchedResponse = {
+    const mockResponse: NeuledgeGraphLookupMatchedResponse = {
       status: "matched",
       value: "mocked",
     };

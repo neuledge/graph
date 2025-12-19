@@ -7,10 +7,8 @@ export interface ApiFetchParams {
   body?: object;
 }
 
-export interface ApiFetchErrorResponse {
-  error: {
-    message: string;
-  };
+export interface NeuledgeApiErrorResponse {
+  error: NeuledgeError;
 }
 
 export async function apiFetch<T>(
@@ -33,7 +31,7 @@ export async function apiFetch<T>(
     return res
       .json()
       .then((data) => {
-        const typed = data as Partial<ApiFetchErrorResponse>;
+        const typed = data as Partial<NeuledgeApiErrorResponse>;
         if (typeof typed?.error?.message !== "string") {
           throw new Error(`Unknown error response`);
         }

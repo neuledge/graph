@@ -1,0 +1,76 @@
+{
+  "name": "@neuledge/graph-router",
+  "version": "0.1.0",
+  "description": "A simple router implementation for @neuledge/graph package.",
+  "keywords": [
+    "ai",
+    "llm",
+    "agents",
+    "openai",
+    "anthropic",
+    "langchain",
+    "vercel-ai",
+    "ai-sdk",
+    "tool",
+    "function-calling",
+    "structured-data",
+    "live-data",
+    "knowledge-graph",
+    "real-time-data",
+    "data-fetching",
+    "ai-integration",
+    "ai-tools",
+    "lookup",
+    "grounding",
+    "no-rag",
+    "no-indexes",
+    "json-api",
+    "data-layer",
+    "ai-infrastructure",
+    "neuledge",
+    "weather",
+    "stocks",
+    "price",
+    "fx",
+    "rates"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rimraf --glob dist/** && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "evals": "vitest run --config vitest.config.evals.ts",
+    "lint": "npx biome ci --error-on-warnings",
+    "fix": "npx biome check --write",
+    "prepare": "npm run build"
+  },
+  "author": "Neuledge",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@neuledge/graph": "workspace:*",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/node": "^24.9.1",
+    "rimraf": "^6.0.1",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.0.3"
+  },
+  "tsx": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
+}

@@ -3,18 +3,18 @@ import { apiFetch } from "./api-fetch.js";
 import { NeuledgeError } from "./error.js";
 import type { NeuledgeGraph } from "./index.js";
 
-export interface GraphLookup {
+export interface NeuledgeGraphLookup {
   (
     this: NeuledgeGraph,
-    params: GraphLookupParams,
-  ): Promise<GraphLookupResponse | GraphLookupErrorResponse>;
+    params: NeuledgeGraphLookupParams,
+  ): Promise<NeuledgeGraphLookupResponse | NeuledgeGraphLookupErrorResponse>;
 
   name: string;
   description: string;
-  parameters: typeof parameters;
-  schema: typeof parameters;
-  inputSchema: typeof parameters;
-  execute: GraphLookup;
+  parameters: typeof NeuledgeGraphLookupParams;
+  schema: typeof NeuledgeGraphLookupParams;
+  inputSchema: typeof NeuledgeGraphLookupParams;
+  execute: NeuledgeGraphLookup;
 }
 
 const description = `This tool provides access to **live, structured data** across a wide range of domains.
@@ -45,8 +45,10 @@ The system tries to match your query to a **built-in template** and fill the \`{
 
 **Key principle:** Even if your query doesn't exactly match a template, the tool will **suggest the closest available templates**, allowing you to refine and retrieve the live data. When in doubt, try a query - the tool will guide you to the right template.`;
 
-export type GraphLookupParams = z.infer<typeof parameters>;
-const parameters = z.object({
+export type NeuledgeGraphLookupParams = z.infer<
+  typeof NeuledgeGraphLookupParams
+>;
+export const NeuledgeGraphLookupParams = z.object({
   query: z
     .string()
     .describe(
@@ -107,42 +109,45 @@ const parameters = z.object({
     .optional(),
 });
 
-export type GraphLookupResponse =
-  | GraphLookupMatchedResponse
-  | GraphLookupAmbiguousResponse;
+export type NeuledgeGraphLookupResponse =
+  | NeuledgeGraphLookupMatchedResponse
+  | NeuledgeGraphLookupAmbiguousResponse;
 
-export interface GraphLookupMatchedResponse<T = unknown> {
+export interface NeuledgeGraphLookupMatchedResponse<T = unknown> {
   status: "matched";
   value: T;
 }
 
-export interface GraphLookupAmbiguousResponse {
+export interface NeuledgeGraphLookupAmbiguousResponse {
   status: "ambiguous";
   reasonCode: "UNKNOWN_PATH" | "INVALID_IDENTIFIER" | (string & {});
   reasonHint: string;
-  suggestions: GraphLookupResponseTemplate[];
+  suggestions: NeuledgeGraphLookupResponseTemplate[];
 }
 
-export interface GraphLookupResponseTemplate {
+export interface NeuledgeGraphLookupResponseTemplate {
   template: string;
 }
 
-export interface GraphLookupErrorResponse {
+export interface NeuledgeGraphLookupErrorResponse {
   status: "error";
   error: NeuledgeError;
 }
 
-export const lookup: GraphLookup = Object.assign(
-  async function lookup(this: NeuledgeGraph, params: GraphLookupParams) {
-    return await apiFetch<GraphLookupResponse>(this, {
+export const lookup: NeuledgeGraphLookup = Object.assign(
+  async function lookup(
+    this: NeuledgeGraph,
+    params: NeuledgeGraphLookupParams,
+  ) {
+    return await apiFetch<NeuledgeGraphLookupResponse>(this, {
       url: "/lookup",
       method: "POST",
       body: {
         query: params.query,
         context: params.context,
-      } satisfies GraphLookupParams,
+      } satisfies NeuledgeGraphLookupParams,
     }).catch(
-      (error): GraphLookupErrorResponse => ({
+      (error): NeuledgeGraphLookupErrorResponse => ({
         status: "error",
         error: NeuledgeError.from(error),
       }),
@@ -150,9 +155,9 @@ export const lookup: GraphLookup = Object.assign(
   },
   {
     description,
-    parameters: parameters,
-    schema: parameters,
-    inputSchema: parameters,
+    parameters: NeuledgeGraphLookupParams,
+    schema: NeuledgeGraphLookupParams,
+    inputSchema: NeuledgeGraphLookupParams,
     execute: null as never,
   },
 );
