@@ -1,0 +1,90 @@
+{
+  "name": "@neuledge/graph",
+  "version": "0.1.0",
+  "description": "Give LLMs real knowledge — structured, live, and reliable — so they reason with facts, not guesses.",
+  "keywords": [
+    "ai",
+    "llm",
+    "agents",
+    "openai",
+    "anthropic",
+    "langchain",
+    "vercel-ai",
+    "ai-sdk",
+    "tool",
+    "function-calling",
+    "structured-data",
+    "live-data",
+    "knowledge-graph",
+    "real-time-data",
+    "data-fetching",
+    "ai-integration",
+    "ai-tools",
+    "lookup",
+    "grounding",
+    "no-rag",
+    "no-indexes",
+    "json-api",
+    "data-layer",
+    "ai-infrastructure",
+    "neuledge",
+    "weather",
+    "stocks",
+    "price",
+    "fx",
+    "rates"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rimraf --glob dist/** && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "evals": "vitest run --config vitest.config.evals.ts",
+    "lint": "npx biome ci --error-on-warnings",
+    "fix": "npx biome check --write",
+    "prepare": "npm run build"
+  },
+  "author": "Neuledge",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@ai-sdk/anthropic": "^2.0.50",
+    "@ai-sdk/openai": "^2.0.74",
+    "@langchain/core": "^1.0.1",
+    "@langchain/openai": "^1.0.0",
+    "@openai/agents": "^0.2.1",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^24.9.1",
+    "ai": "^5.0.104",
+    "dotenv": "^17.2.3",
+    "js-yaml": "^4.1.1",
+    "langchain": "^1.0.1",
+    "rimraf": "^6.0.1",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.0.3",
+    "zod": "^4.1.12",
+    "zod-to-json-schema": "^3.24.6"
+  },
+  "peerDependencies": {
+    "zod": ">=3"
+  },
+  "tsx": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
+}

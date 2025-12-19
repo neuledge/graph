@@ -1,0 +1,87 @@
+- category: "Weather"
+  tests:
+    - prompt: "What is the weather in San Francisco?"
+      matches:
+        cities.san_francisco.weather: 1
+
+    - prompt: "What is the weather in Berlin?"
+      matches:
+        cities.berlin.weather: 1
+
+- category: "Current Time"
+  tests:
+    - prompt: "What time is it in Tokyo right now?"
+      matches:
+        cities.tokyo.time: 1
+        
+    - prompt: "What time is it in New York?"
+      matches:
+        cities.new_york.time: 1
+
+- category: "Future Dates"
+  tests:
+    - prompt: "When is the next Monday?"
+      matches:
+        calendar.next.monday: 1
+
+    - prompt: "What is the date 32 weeks from today?"
+      matches:
+        calendar.in.32.weeks: 1
+
+- category: "Holidays"
+  tests:
+    - prompt: "When is Thanksgiving next year?"
+      matches:
+        holidays.thanksgiving.next: 1
+      suggestions:
+        - holidays.{holiday}.next
+
+    - prompt: "What day is Ramadan starting next year??"
+      matches:
+        holidays.ramadan.next: 1
+      suggestions:
+        - holidays.{holiday}.next
+    
+    - prompt: "Next jewish new year?"
+      matches:
+        holidays.rosh_hashanah.next: 1
+      suggestions:
+        - holidays.{holiday}.next
+
+- category: "Stock Price"
+  tests:
+    - prompt: "What is the current stock price of Apple?"
+      matches:
+        stocks.apple.price: 1
+        stocks.aapl.price: 1
+
+    - prompt: "What is the current stock price of Spotify?"
+      matches:
+        stocks.spotify.price: 1
+        stocks.spot.price: 1
+
+- category: "FX Rates"
+  tests:
+    - prompt: "What is the current exchange rate from USD to EUR?"
+      matches:
+        currencies.usd.rate.eur: 1
+
+    - prompt: "What is the current exchange rate from Pound to Yen?"
+      matches:
+        currencies.gbp.rate.jpy: 1
+        currencies.pound.rate.yen: 0.7
+
+- category: "News"
+  tests:
+    - prompt: "Give me the latest headlines about AI"
+      matches:
+        news.ai.latest: 1
+        news.artificial_intelligence.latest: 1
+        stocks.open_ai.news: 0
+        stocks.google.news: 0
+        wikipedia.artificial_intelligence.summary: 0
+        wikipedia.ai.summary: 0
+      suggestions:
+        - news.{topic}.latest
+        - stocks.{company}.news
+        - wikipedia.{topic}.summary
