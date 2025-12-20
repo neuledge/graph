@@ -55,58 +55,58 @@ export const NeuledgeGraphLookupParams = z.object({
       `A search query using snake_case and dots between segments (lowercase.with_underscores).`,
     ),
 
-  context: z
-    .object({
-      units: z
-        .enum(["auto", "metric", "imperial"])
-        .default("auto")
-        .describe(
-          "Measurement system for applicable data (temperature, distance, etc.). 'auto' uses location-appropriate defaults.",
-        )
-        .optional(),
-
-      date: z
-        .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/, "Must be YYYY-MM-DD format")
-        .describe(
-          "Reference date for time-sensitive queries. Defaults to current date if not specified.",
-        )
-        .optional(),
-
-      amount: z
-        .number()
-        .positive()
-        .describe(
-          "Quantity for conversion queries (e.g., currency amounts). Defaults to 1 if not specified.",
-        )
-        .optional(),
-
-      timezone: z
-        .string()
-        .regex(
-          /^([A-Z]{2,5}|[A-Za-z]+\/[A-Za-z_]+)$/,
-          "Must be a valid timezone (e.g., 'EST', 'America/New_York')",
-        )
-        .describe(
-          "TTimezone for date/time queries (e.g., 'America/New_York', 'EST')",
-        )
-        .optional(),
-
-      locale: z
-        .string()
-        .regex(
-          /^[a-z]{2}(-[A-Z]{2})?$/,
-          "Must be language code or language-country (e.g., 'en', 'en-US')",
-        )
-        .describe(
-          "Locale for formatting numbers, dates, and currency. Affects output presentation.",
-        )
-        .optional(),
-    })
-    .describe(
-      "Optional parameters that modify how data is retrieved or formatted.",
-    )
-    .optional(),
+  //   context: z
+  //     .object({
+  //       units: z
+  //         .enum(["auto", "metric", "imperial"])
+  //         .default("auto")
+  //         .describe(
+  //           "Measurement system for applicable data (temperature, distance, etc.). 'auto' uses location-appropriate defaults.",
+  //         )
+  //         .optional(),
+  //
+  //       date: z
+  //         .string()
+  //         .regex(/^\d{4}-\d{2}-\d{2}$/, "Must be YYYY-MM-DD format")
+  //         .describe(
+  //           "Reference date for time-sensitive queries. Defaults to current date if not specified.",
+  //         )
+  //         .optional(),
+  //
+  //       amount: z
+  //         .number()
+  //         .positive()
+  //         .describe(
+  //           "Quantity for conversion queries (e.g., currency amounts). Defaults to 1 if not specified.",
+  //         )
+  //         .optional(),
+  //
+  //       timezone: z
+  //         .string()
+  //         .regex(
+  //           /^([A-Z]{2,5}|[A-Za-z]+\/[A-Za-z_]+)$/,
+  //           "Must be a valid timezone (e.g., 'EST', 'America/New_York')",
+  //         )
+  //         .describe(
+  //           "TTimezone for date/time queries (e.g., 'America/New_York', 'EST')",
+  //         )
+  //         .optional(),
+  //
+  //       locale: z
+  //         .string()
+  //         .regex(
+  //           /^[a-z]{2}(-[A-Z]{2})?$/,
+  //           "Must be language code or language-country (e.g., 'en', 'en-US')",
+  //         )
+  //         .describe(
+  //           "Locale for formatting numbers, dates, and currency. Affects output presentation.",
+  //         )
+  //         .optional(),
+  //     })
+  //     .describe(
+  //       "Optional parameters that modify how data is retrieved or formatted.",
+  //     )
+  //     .optional(),
 });
 
 export type NeuledgeGraphLookupResponse =
@@ -144,7 +144,7 @@ export const lookup: NeuledgeGraphLookup = Object.assign(
       method: "POST",
       body: {
         query: params.query,
-        context: params.context,
+        // context: params.context,
       } satisfies NeuledgeGraphLookupParams,
     }).catch(
       (error): NeuledgeGraphLookupErrorResponse => ({
