@@ -25,7 +25,7 @@ Your AI agent gets asked: *"What's the weather in Tokyo?"*
 
 **Your options:**
 1. 🤷 **Let the LLM guess** → "Tokyo is typically mild this time of year..." (Wrong)
-2. 🐌 **Web search tool** → 3-5 seconds, parse HTML, unreliable results
+2. 🐌 **Web search tool** → 3-5 seconds, parse HTML, unstructured results
 3. 🔧 **Build custom integration** → Sign up for API, handle auth, write parsers
 4. ⚡ **Use @neuledge/graph** → `lookup({ query: "cities.tokyo.weather" })` → Done in <100ms
 
