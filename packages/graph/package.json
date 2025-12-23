@@ -42,10 +42,12 @@
   },
   "files": [
     "dist/",
+    "bin/",
     "package.json",
     "README.md",
     "LICENSE"
   ],
+  "bin": "./bin/cli.js",
   "scripts": {
     "build": "rimraf --glob dist/** && tsc -p tsconfig.build.json",
     "test": "vitest run",
