@@ -40,7 +40,7 @@ export class NeuledgeGraphMemoryRegistry implements NeuledgeGraphRegistry {
     this.embeddingModel = options.model;
     this.registry = {};
     this.registerQueue = {};
-    this.defaultTrashhold = options.defaultTrashhold ?? 0.2;
+    this.defaultTrashhold = options.defaultTrashhold ?? 0;
     this.defaultLimit = options.defaultLimit ?? 10;
   }
 

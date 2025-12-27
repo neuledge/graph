@@ -71,13 +71,21 @@ async function signUp(email) {
     body: JSON.stringify({ email }),
     abort: controller.signal,
   }).catch(() => {
-    throw new Error(
-      `Error while accessing the server: ${NEULEDGE_API_BASE_URL}`,
-    );
+    throw new Error("Error while accessing the server");
   });
 
   if (!res.ok) {
-    const text = await res.text();
+    const text = await res
+      .json()
+      .then((body) => {
+        const message = body?.error?.message;
+        if (!message) {
+          throw new Error("Invalid error format");
+        }
+
+        return message;
+      })
+      .catch(() => res.text());
     throw new Error(`Sign-up failed (${res.status}): ${text}`);
   }
 

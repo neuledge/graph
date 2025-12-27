@@ -206,7 +206,7 @@ npx @neuledge/graph sign-up your-email@example.com
 You'll receive an API key via email:
 
 ```bash
-NEULEDGE_API_KEY='sk-xxxxxxxxx'
+NEULEDGE_API_KEY='sk_xxxxxxxxx'
 ```
 
 ### Using Your API Key
@@ -214,6 +214,7 @@ NEULEDGE_API_KEY='sk-xxxxxxxxx'
 Pass the key when initializing the graph:
 
 ```typescript
+import "dotenv/config";
 import { NeuledgeGraph } from '@neuledge/graph';
 
 const graph = new NeuledgeGraph({
