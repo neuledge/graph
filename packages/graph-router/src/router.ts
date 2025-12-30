@@ -18,18 +18,6 @@ export class NeuledgeGraphRouter {
 
   async lookup(
     params: NeuledgeGraphLookupParams,
-  ): Promise<NeuledgeGraphLookupResponse | NeuledgeApiErrorResponse> {
-    return this.unsafeLookup(params).catch(
-      (error): NeuledgeApiErrorResponse => ({
-        error: {
-          message: String((error as Error)?.message || error),
-        },
-      }),
-    );
-  }
-
-  private async unsafeLookup(
-    params: NeuledgeGraphLookupParams,
   ): Promise<NeuledgeGraphLookupResponse> {
     const path = normalizePath(params.query);
     const match = await this.registry.match({ path });
@@ -73,6 +61,14 @@ export class NeuledgeGraphRouter {
       suggestions: suggestions.map((r) => ({
         template: r.template,
       })),
+    };
+  }
+
+  handleError(error: unknown): NeuledgeApiErrorResponse {
+    return {
+      error: {
+        message: String((error as Error)?.message || error),
+      },
     };
   }
 }
