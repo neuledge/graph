@@ -115,6 +115,7 @@ export type NeuledgeGraphLookupResponse =
 
 export interface NeuledgeGraphLookupMatchedResponse<T = unknown> {
   status: "matched";
+  match: NeuledgeGraphLookupResponseTemplate;
   value: T;
 }
 

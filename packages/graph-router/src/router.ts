@@ -39,6 +39,7 @@ export class NeuledgeGraphRouter {
         const value = await this.registry.resolve(match);
         return {
           status: "matched",
+          match,
           value,
         };
       } catch (error) {

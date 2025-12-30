@@ -1,5 +1,5 @@
+import type { NeuledgeGraphMatch } from "@neuledge/graph";
 import {
-  type NeuledgeGraphMatch,
   NeuledgeGraphMatcher,
   type NeuledgeGraphRegistry,
   type NeuledgeGraphResolver,

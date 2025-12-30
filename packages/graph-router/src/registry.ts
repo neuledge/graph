@@ -1,4 +1,4 @@
-import type { NeuledgeGraphMatch } from "./matcher.js";
+import type { NeuledgeGraphMatch } from "@neuledge/graph";
 
 export interface NeuledgeGraphRegistry {
   match(args: { path: string }): Promise<NeuledgeGraphMatch | null>;

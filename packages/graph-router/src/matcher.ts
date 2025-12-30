@@ -1,22 +1,13 @@
+import type {
+  NeuledgeGraphMatch,
+  NeuledgeGraphTemplateParams,
+} from "@neuledge/graph";
 import { decodePathPart } from "./utils.js";
-
-export interface NeuledgeGraphMatch<Template extends string = string> {
-  template: Template;
-  params: NeuledgeGraphTemplateParams<Template>;
-}
 
 export type NeuledgeGraphResolver<
   Template extends string,
   Value extends object,
 > = (params: NeuledgeGraphTemplateParams<Template>) => Promise<Value>;
-
-export type NeuledgeGraphTemplateParams<Template extends string = string> =
-  Record<NeuledgeGraphTemplateParamsNames<Template>, string>;
-
-type NeuledgeGraphTemplateParamsNames<T extends string> =
-  T extends `${string}{${infer Param}}${infer Rest}`
-    ? Param | NeuledgeGraphTemplateParamsNames<Rest>
-    : never;
 
 export class NeuledgeGraphMatcher<Template extends string> {
   private readonly regex: RegExp;

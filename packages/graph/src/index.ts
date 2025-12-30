@@ -10,3 +10,7 @@ export {
   type NeuledgeGraphLookupResponse,
   type NeuledgeGraphLookupResponseTemplate,
 } from "./lookup.js";
+export type {
+  NeuledgeGraphMatch,
+  NeuledgeGraphTemplateParams,
+} from "./match.js";

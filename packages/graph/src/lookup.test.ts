@@ -18,11 +18,12 @@ describe("lookup", () => {
   it("should call apiFetch with correct arguments", async () => {
     const mockResponse: NeuledgeGraphLookupMatchedResponse = {
       status: "matched",
+      match: { template: "cities.{city}.weather" },
       value: "mocked",
     };
     vi.mocked(apiFetch).mockResolvedValueOnce(mockResponse);
 
-    const params = { query: "cities.london.weather", context: {} };
+    const params = { query: "cities.london.weather" };
     const result = await lookup.call(graph, params);
 
     expect(apiFetch).toHaveBeenCalledWith(graph, {
@@ -42,6 +43,7 @@ describe("lookup", () => {
     });
 
     expect(result).toEqual({
+      status: "error",
       error: expect.any(NeuledgeError),
     });
   });

@@ -1,8 +1,6 @@
 export {
-  type NeuledgeGraphMatch,
   NeuledgeGraphMatcher,
   type NeuledgeGraphResolver,
-  type NeuledgeGraphTemplateParams,
 } from "./matcher.js";
 export type {
   NeuledgeGraphRegistry,
