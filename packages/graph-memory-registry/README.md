@@ -2,7 +2,7 @@
 
 # @neuledge/graph-memory-registry
 
-**In-memory embedding registry for [@neuledge/graph-router](https://github.com/neuledge/graph)**
+**In-memory embedding registry for [@neuledge/graph-router](https://github.com/neuledge/graph/tree/main/packages/graph-router)**
 
 [![npm version](https://img.shields.io/npm/v/@neuledge/graph-memory-registry.svg)](https://www.npmjs.com/package/@neuledge/graph-memory-registry)
 [![License](https://img.shields.io/npm/l/@neuledge/graph-memory-registry.svg)](https://github.com/neuledge/graph/blob/main/LICENSE)
@@ -64,7 +64,7 @@ const match = await registry.match({ path: "weather.tokyo" });
   - `resolve()` - Resolve a matched query to a concrete value
   - `suggestions()` - Get suggestions for alternative matches
 
-For detailed API documentation, see the [@neuledge/graph-router](https://github.com/neuledge/graph/tree/main/packages/graph-router) and [main @neuledge/graph package](https://github.com/neuledge/graph).
+For detailed API documentation, see the [@neuledge/graph-router](https://github.com/neuledge/graph/tree/main/packages/graph-router) and [main package](https://github.com/neuledge/graph).
 
 ## 📄 License
 

@@ -15,7 +15,7 @@
 
 `@neuledge/graph-router` is a supporting package for `@neuledge/graph` that provides routing capabilities. It enables matching queries against a registry of data sources and resolving them to concrete values.
 
-This is an internal utility package used to implement the core lookup functionality in `@neuledge/graph`. For general use with LLMs and AI agents, see the [main @neuledge/graph package](https://github.com/neuledge/graph/tree/main/packages/graph).
+This is an internal utility package used to implement the core lookup functionality in `@neuledge/graph`. For general use with LLMs and AI agents, see the [main package](https://github.com/neuledge/graph/tree/main/packages/graph).
 
 ### Related Packages
 
@@ -58,8 +58,8 @@ const app = Fastify();
 
 app.post("/lookup", async (request, reply) => {
   try {
-  const result = await router.lookup(request.body);
-  return reply.send(result);
+    const result = await router.lookup(request.body);
+    return reply.send(result);
   } catch (error) {
     return reply.status(500).send(router.formatError(error));
   }
@@ -75,7 +75,7 @@ app.listen({ port: 3000 });
 - **`NeuledgeGraphMatcher`** - Pattern matching utilities for query routing
 - **`NeuledgeGraphRegistry`** - Registry interface for data source management
 
-For detailed API documentation, see the [main @neuledge/graph package](https://github.com/neuledge/graph).
+For detailed API documentation, see the [main package](https://github.com/neuledge/graph).
 
 ## 📄 License
 
