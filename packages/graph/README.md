@@ -224,6 +224,67 @@ const graph = new NeuledgeGraph({
 
 **Best Practice:** Store your API key in environment variables and never commit it to version control.
 
+### Building a Custom Server
+
+For advanced use cases, you can build your own knowledge graph server using the router and registry packages:
+
+```typescript
+// Install: npm install @neuledge/graph-router @neuledge/graph-memory-registry fastify
+import { NeuledgeGraphRouter } from "@neuledge/graph-router";
+import { NeuledgeGraphMemoryRegistry } from "@neuledge/graph-memory-registry";
+import { openai } from "ai";
+import Fastify from "fastify";
+
+// Create registry with embedding model
+const registry = new NeuledgeGraphMemoryRegistry({
+  model: openai.embedding("text-embedding-3-small"),
+});
+
+// Register your data sources
+await registry.register({
+  template: "cities.{city}.weather",
+  resolver: async (match) => {
+    const city = match.params.city;
+    const response = await fetch(`https://api.weather.com/current?city=${city}`);
+    return response.json();
+  },
+});
+
+// Create router
+const router = new NeuledgeGraphRouter({ registry });
+
+// Set up HTTP server
+const app = Fastify();
+
+app.post("/lookup", async (request, reply) => {
+  const result = await router.lookup(request.body);
+  return reply.send(result);
+});
+
+app.listen({ port: 3000 });
+```
+
+See [graph-router](https://github.com/neuledge/graph/tree/main/packages/graph-router) and [graph-memory-registry](https://github.com/neuledge/graph/tree/main/packages/graph-memory-registry) packages for detailed documentation.
+
+### Connecting to a Custom Server
+
+Once you have a custom server running, connect to it using the `baseUrl` option:
+
+```typescript
+import { NeuledgeGraph } from "@neuledge/graph";
+
+// Connect to your custom server
+const graph = new NeuledgeGraph({
+  baseUrl: "http://localhost:3000",
+});
+
+// Use it the same way as with the default server
+const result = await graph.lookup({ query: "cities.tokyo.weather" });
+console.log(result); // => { status: "matched", match: {...}, value: {...} }
+```
+
+You can now use this graph instance with any AI framework, and it will query your custom knowledge graph server instead of the default Neuledge service.
+
 <br>
 
 ## 🛠 API Reference

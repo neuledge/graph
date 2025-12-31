@@ -64,7 +64,7 @@ export class NeuledgeGraphRouter {
     };
   }
 
-  handleError(error: unknown): NeuledgeApiErrorResponse {
+  formatError(error: unknown): NeuledgeApiErrorResponse {
     return {
       error: {
         message: String((error as Error)?.message || error),
