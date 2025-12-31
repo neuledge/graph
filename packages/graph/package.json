@@ -55,7 +55,11 @@
     "evals": "vitest run --config vitest.config.evals.ts",
     "lint": "npx biome ci --error-on-warnings",
     "fix": "npx biome check --write",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build && npm run test"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "author": "Neuledge",
   "license": "Apache-2.0",
