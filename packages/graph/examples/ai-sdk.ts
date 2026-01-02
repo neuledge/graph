@@ -4,11 +4,11 @@ import "dotenv/config";
 
 import { anthropic } from "@ai-sdk/anthropic";
 import { NeuledgeGraph } from "@neuledge/graph";
-import { Experimental_Agent as Agent, stepCountIs, tool } from "ai";
+import { stepCountIs, ToolLoopAgent, tool } from "ai";
 
 const graph = new NeuledgeGraph();
 
-const agent = new Agent({
+const agent = new ToolLoopAgent({
   model: anthropic("claude-sonnet-4-5"),
   tools: {
     lookup: tool(graph.lookup),
@@ -16,7 +16,7 @@ const agent = new Agent({
   stopWhen: stepCountIs(20),
 });
 
-const { textStream } = agent.stream({
+const { textStream } = await agent.stream({
   prompt: "Compare Apple and Microsoft stock prices",
 });
 

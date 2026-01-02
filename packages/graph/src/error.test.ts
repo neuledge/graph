@@ -44,6 +44,13 @@ describe("NeuledgeError", () => {
     }
   });
 
+  it("serializes to JSON with message property", () => {
+    const e = new NeuledgeError("json-boom");
+    const json = JSON.parse(JSON.stringify(e));
+
+    expect(json).toStrictEqual({ message: "json-boom" });
+  });
+
   it("roundtrips through JSON-like error objects via .from", () => {
     // simulate receiving an error-like object from another system
     const remote = JSON.parse(JSON.stringify({ message: "remote-boom" }));

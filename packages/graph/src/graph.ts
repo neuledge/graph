@@ -1,4 +1,4 @@
-import { lookup } from "./lookup.js";
+import { bindLookup, type NeuledgeGraphLookup } from "./lookup.js";
 
 export interface NeuledgeGraphOptions {
   apiKey?: string;
@@ -17,8 +17,5 @@ export class NeuledgeGraph {
     this.timeout = options.timeout || 10000;
   }
 
-  // assign the type hardcoded here as we updating the prototype later on
-  declare lookup: typeof lookup;
+  lookup: NeuledgeGraphLookup = bindLookup(this);
 }
-
-NeuledgeGraph.prototype.lookup = lookup;

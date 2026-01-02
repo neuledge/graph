@@ -11,6 +11,10 @@ class NeuledgeErrorImpl extends Error implements NeuledgeError {
     Object.setPrototypeOf(this, NeuledgeError.prototype);
   }
 
+  toJSON(): NeuledgeError {
+    return { message: this.message };
+  }
+
   static from(error: NeuledgeError | unknown): NeuledgeError {
     if (error instanceof NeuledgeError) {
       return error;
@@ -26,5 +30,8 @@ class NeuledgeErrorImpl extends Error implements NeuledgeError {
     return neuledgeError;
   }
 }
+Object.defineProperty(NeuledgeErrorImpl, "name", {
+  value: "NeuledgeError",
+});
 
 export const NeuledgeError = NeuledgeErrorImpl;

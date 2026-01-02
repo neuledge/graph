@@ -5,7 +5,6 @@ import type { NeuledgeGraph } from "./index.js";
 
 export interface NeuledgeGraphLookup {
   (
-    this: NeuledgeGraph,
     params: NeuledgeGraphLookupParams,
   ): Promise<NeuledgeGraphLookupResponse | NeuledgeGraphLookupErrorResponse>;
 
@@ -135,36 +134,36 @@ export interface NeuledgeGraphLookupErrorResponse {
   error: NeuledgeError;
 }
 
-export const lookup: NeuledgeGraphLookup = Object.assign(
-  async function lookup(
-    this: NeuledgeGraph,
-    params: NeuledgeGraphLookupParams,
-  ) {
-    return await apiFetch<NeuledgeGraphLookupResponse>(this, {
-      url: "/lookup",
-      method: "POST",
-      body: {
-        query: params.query,
-        // context: params.context,
-      } satisfies NeuledgeGraphLookupParams,
-    }).catch(
-      (error): NeuledgeGraphLookupErrorResponse => ({
-        status: "error",
-        error: NeuledgeError.from(error),
-      }),
-    );
-  },
-  {
-    description,
-    parameters: NeuledgeGraphLookupParams,
-    schema: NeuledgeGraphLookupParams,
-    inputSchema: NeuledgeGraphLookupParams,
-    execute: null as never,
-  },
-);
+export const bindLookup = (graph: NeuledgeGraph): NeuledgeGraphLookup => {
+  const lookup: NeuledgeGraphLookup = Object.assign(
+    async (params: NeuledgeGraphLookupParams) =>
+      apiFetch<NeuledgeGraphLookupResponse>(graph, {
+        url: "/lookup",
+        method: "POST",
+        body: {
+          query: params.query,
+          // context: params.context,
+        } satisfies NeuledgeGraphLookupParams,
+      }).catch(
+        (error): NeuledgeGraphLookupErrorResponse => ({
+          status: "error",
+          error: NeuledgeError.from(error),
+        }),
+      ),
+    {
+      description,
+      parameters: NeuledgeGraphLookupParams,
+      schema: NeuledgeGraphLookupParams,
+      inputSchema: NeuledgeGraphLookupParams,
+      execute: null as never,
+    },
+  );
 
-// force `name` property to be enumerable (fix LangChain bug)
-Object.defineProperty(lookup, "name", { value: "lookup", enumerable: true });
+  // force `name` property to be enumerable (fix LangChain bug)
+  Object.defineProperty(lookup, "name", { value: "lookup", enumerable: true });
 
-// self assign `execute`
-lookup.execute = lookup;
+  // self assign `execute`
+  lookup.execute = lookup;
+
+  return lookup;
+};

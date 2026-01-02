@@ -9,15 +9,16 @@ describe("NeuledgeGraphMemoryRegistry", () => {
 
   beforeEach(() => {
     mock_embedding_model = {
-      specificationVersion: "v2",
+      specificationVersion: "v3",
       provider: "test",
       modelId: "test-model",
       maxEmbeddingsPerCall: 10,
       supportsParallelCalls: true,
       doEmbed: vi.fn().mockResolvedValue({
         embeddings: [[0.1, 0.2, 0.3]],
+        warnings: [],
       }),
-    } as unknown as EmbeddingModel;
+    } satisfies EmbeddingModel;
 
     registry = new NeuledgeGraphMemoryRegistry({
       model: mock_embedding_model,

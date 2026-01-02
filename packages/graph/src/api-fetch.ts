@@ -38,7 +38,11 @@ export async function apiFetch<T>(
 
         throw new NeuledgeError(typed.error.message);
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err instanceof NeuledgeError) {
+          throw err;
+        }
+
         throw new NeuledgeError(
           `NeuledgeGraph: Request failed with ${res.statusText}`,
         );
