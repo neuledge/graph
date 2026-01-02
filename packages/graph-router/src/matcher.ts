@@ -18,12 +18,12 @@ export class NeuledgeGraphMatcher<Template extends string> {
 
   match(args: { path: string }): NeuledgeGraphMatch<Template> | null {
     const match = args.path.match(this.regex);
-    if (!match?.groups) return null;
+    if (!match) return null;
 
     return {
       template: this.template,
       params: Object.fromEntries(
-        Object.entries(match.groups).map(([key, value]) => [
+        Object.entries(match.groups ?? {}).map(([key, value]) => [
           key,
           decodePathPart(value),
         ]),
@@ -32,14 +32,14 @@ export class NeuledgeGraphMatcher<Template extends string> {
   }
 
   private static generateRegex(template: string): RegExp {
-    // First, convert {param} into named capture groups
-    const withCaptureGroups = template.replace(
+    // First escape regex special chars (dots, etc.)
+    const escaped = template.replace(/\./g, "\\.");
+
+    // Then convert {param} into named capture groups
+    const regexString = escaped.replace(
       /\{(\w+)\}/g,
       (_, name) => `(?<${name}>[^.]+)`,
     );
-
-    // Then escape regex special chars (dots, etc.)
-    const regexString = withCaptureGroups.replace(/\./g, "\\.");
 
     return new RegExp(`^${regexString}$`);
   }
