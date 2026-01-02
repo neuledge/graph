@@ -1,6 +1,6 @@
 {
   "name": "@neuledge/graph-memory-registry",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "In-memory embedding registry for intelligent query routing with semantic similarity matching.",
   "keywords": [
     "ai",
@@ -62,7 +62,7 @@
     "vitest": "^4.0.3"
   },
   "peerDependencies": {
-    "@neuledge/graph-router": "^0.1.0",
+    "@neuledge/graph-router": "^0.2.0",
     "ai": ">=5.0.0"
   },
   "tsx": {
