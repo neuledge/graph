@@ -1,6 +1,6 @@
 {
   "name": "@neuledge/graph-memory-registry",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "In-memory embedding registry for intelligent query routing with semantic similarity matching.",
   "keywords": [
     "ai",
