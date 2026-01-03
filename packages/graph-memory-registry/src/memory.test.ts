@@ -14,11 +14,18 @@ describe("NeuledgeGraphMemoryRegistry", () => {
       modelId: "test-model",
       maxEmbeddingsPerCall: 10,
       supportsParallelCalls: true,
-      doEmbed: vi.fn().mockResolvedValue({
-        embeddings: [[0.1, 0.2, 0.3]],
-        warnings: [],
-      }),
-    } satisfies EmbeddingModel;
+      doEmbed: vi
+        .fn()
+        .mockImplementation(async ({ values }: { values: string[] }) => ({
+          embeddings: values.map((value) =>
+            Array.from(
+              { length: 8 },
+              (_, i) => (i + 1) * 0.1 + value.length * 0.01,
+            ),
+          ),
+          warnings: [],
+        })),
+    };
 
     registry = new NeuledgeGraphMemoryRegistry({
       model: mock_embedding_model,
@@ -48,7 +55,7 @@ describe("NeuledgeGraphMemoryRegistry", () => {
     const mock_data = { temperature: 72, humidity: 65 };
     const resolver = vi.fn().mockResolvedValue(mock_data);
 
-    await registry.register({
+    registry.register({
       template: "cities.{city}.weather",
       resolver,
     });
@@ -76,12 +83,12 @@ describe("NeuledgeGraphMemoryRegistry", () => {
   });
 
   it("should return suggestions based on similarity", async () => {
-    await registry.register({
+    registry.register({
       template: "cities.{city}.weather",
       resolver: vi.fn(),
     });
 
-    await registry.register({
+    registry.register({
       template: "cities.{city}.population",
       resolver: vi.fn(),
     });

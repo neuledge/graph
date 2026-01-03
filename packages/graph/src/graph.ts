@@ -13,7 +13,10 @@ export class NeuledgeGraph {
 
   constructor(options: NeuledgeGraphOptions = {}) {
     this.apiKey = options.apiKey;
-    this.baseUrl = options.baseUrl || "https://api.graph.neuledge.com/v1";
+    this.baseUrl =
+      options.baseUrl ||
+      process.env.NEULEDGE_GRAPH_BASE_URL ||
+      "https://api.graph.neuledge.com/v1";
     this.timeout = options.timeout || 10000;
   }
 

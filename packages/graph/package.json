@@ -1,6 +1,6 @@
 {
   "name": "@neuledge/graph",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Give LLMs real knowledge — structured, live, and reliable — so they reason with facts, not guesses.",
   "keywords": [
     "ai",

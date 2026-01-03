@@ -52,4 +52,22 @@ describe("NeuledgeGraphMatcher", () => {
 
     expect(result?.params).toStrictEqual({ id: "hello world" });
   });
+
+  it("throws error for duplicate param names", () => {
+    expect(() => {
+      new NeuledgeGraphMatcher("user.{id}.post.{id}");
+    }).toThrowError(
+      'Invalid template "user.{id}.post.{id}": Duplicate capture group name',
+    );
+  });
+
+  it("handles templates with special regex characters", () => {
+    const matcher = new NeuledgeGraphMatcher("file.{name}.v1(backup)");
+    const result = matcher.match({ path: "file.my_file.v1(backup)" });
+
+    expect(result).toEqual({
+      template: "file.{name}.v1(backup)",
+      params: { name: "my file" },
+    });
+  });
 });

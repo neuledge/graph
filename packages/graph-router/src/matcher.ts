@@ -32,15 +32,21 @@ export class NeuledgeGraphMatcher<Template extends string> {
   }
 
   private static generateRegex(template: string): RegExp {
-    // First escape regex special chars (dots, etc.)
-    const escaped = template.replace(/\./g, "\\.");
+    try {
+      const escaped = template.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-    // Then convert {param} into named capture groups
-    const regexString = escaped.replace(
-      /\{(\w+)\}/g,
-      (_, name) => `(?<${name}>[^.]+)`,
-    );
+      const regexString = escaped.replace(
+        /\\\{(\w+)\\\}/g,
+        (_, name) => `(?<${name}>[^.]+?)`,
+      );
 
-    return new RegExp(`^${regexString}$`);
+      return new RegExp(`^${regexString}$`);
+    } catch (err) {
+      if (err instanceof SyntaxError) {
+        const message = err.message.split(": ").at(-1) || "Syntax error";
+        throw new Error(`Invalid template "${template}": ${message}`);
+      }
+      throw err;
+    }
   }
 }

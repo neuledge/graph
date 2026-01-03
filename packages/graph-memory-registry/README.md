@@ -41,10 +41,14 @@ import { openai } from "@ai-sdk/openai";
 
 const registry = new NeuledgeGraphMemoryRegistry({
   model: openai.embedding("text-embedding-3-small"),
+
+  // (optional) useful for persistence across restarts and serverless cold starts
+  // commit this file to your repo or store in a shared volume
+  cacheFile: "./embedding-cache.json", 
 });
 
 // Register a data source
-await registry.register({
+registry.register({
   template: "weather.{city}",
   resolver: async ({ city }) => {
     // fetch weather for the matched city

@@ -22,46 +22,46 @@ export class NeuledgeGraphRouter {
     const path = normalizePath(params.query);
     const match = await this.registry.match({ path });
 
-    if (match) {
-      try {
-        const value = await this.registry.resolve(match);
-        return {
-          status: "matched",
-          match,
-          value,
-        };
-      } catch (error) {
-        if (!(error instanceof NeuledgeError)) {
-          throw error;
-        }
+    if (!match) {
+      const suggestions = await this.registry.suggestions({
+        path,
+      });
 
-        const suggestions = await this.registry.suggestions({
-          path: match.template,
-        });
-
-        return {
-          status: "ambiguous",
-          reasonCode: "INVALID_IDENTIFIER",
-          reasonHint: error.message,
-          suggestions: suggestions.map((r) => ({
-            template: r.template,
-          })),
-        };
-      }
+      return {
+        status: "ambiguous",
+        reasonCode: "UNKNOWN_PATH",
+        reasonHint: "Try using one of the suggested templates",
+        suggestions: suggestions.map((r) => ({
+          template: r.template,
+        })),
+      };
     }
 
-    const suggestions = await this.registry.suggestions({
-      path,
-    });
+    try {
+      const value = await this.registry.resolve(match);
+      return {
+        status: "matched",
+        match,
+        value,
+      };
+    } catch (error) {
+      if (!(error instanceof NeuledgeError)) {
+        throw error;
+      }
 
-    return {
-      status: "ambiguous",
-      reasonCode: "UNKNOWN_PATH",
-      reasonHint: "Try using one of the suggested templates",
-      suggestions: suggestions.map((r) => ({
-        template: r.template,
-      })),
-    };
+      const suggestions = await this.registry.suggestions({
+        path: match.template,
+      });
+
+      return {
+        status: "ambiguous",
+        reasonCode: "INVALID_IDENTIFIER",
+        reasonHint: error.message,
+        suggestions: suggestions.map((r) => ({
+          template: r.template,
+        })),
+      };
+    }
   }
 
   formatError(error: unknown): NeuledgeApiErrorResponse {
