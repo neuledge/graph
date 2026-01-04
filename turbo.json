@@ -13,6 +13,9 @@
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "release": {
+      "cache": false
     }
   }
 }
