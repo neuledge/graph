@@ -3,7 +3,7 @@
 # @neuledge/graph
 
 
-**Live, verified data for your LLM with zero API overhead.**
+**Stop building API integrations. Connect your LLM to live data in one line of code.**
 
 [![npm version](https://img.shields.io/npm/v/@neuledge/graph.svg)](https://www.npmjs.com/package/@neuledge/graph)
 [![License](https://img.shields.io/npm/l/@neuledge/graph.svg)](https://github.com/neuledge/graph/blob/main/LICENSE)
@@ -17,7 +17,7 @@
 
 ## Overview
 
-`@neuledge/graph` connects your AI to live, structured data sources so your models can answer with certainty. Stop hallucinations before they happen by grounding your LLM in real-time, verified data.
+`@neuledge/graph` gives your AI instant access to live, structured data from weather APIs, stock markets, and currency exchanges - without the integration work. Get accurate answers in under _100ms_, not hallucinated guesses.
 
 ### Why @neuledge/graph?
 
