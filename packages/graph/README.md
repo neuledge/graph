@@ -3,7 +3,7 @@
 # @neuledge/graph
 
 
-**Give LLMs real knowledge — structured, live, and reliable — so they reason with facts, not guesses.**
+**Live, verified data for your LLM with zero API overhead.**
 
 [![npm version](https://img.shields.io/npm/v/@neuledge/graph.svg)](https://www.npmjs.com/package/@neuledge/graph)
 [![License](https://img.shields.io/npm/l/@neuledge/graph.svg)](https://github.com/neuledge/graph/blob/main/LICENSE)
