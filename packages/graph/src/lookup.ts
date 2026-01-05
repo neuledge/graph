@@ -35,7 +35,12 @@ The system tries to match your query to a **built-in template** and fill the \`{
 
 **The most popular templates used:**  
 * \`cities.{city}.weather\`
-* \`cities.{city}.time\`
+* \`country_codes.{country_code}.cities.{city}.weather\`
+* \`provinces.{province}.cities.{city}.weather\`
+* \`regions.{region}.cities.{city}.weather\`
+* \`states.{state}.cities.{city}.weather\`
+* \`timezones.{continent}.{region}.time\`
+* \`timezones.{continent}.{region}.{city}.time\`
 * \`stocks.{stock}.quote\`
 * \`currencies.{from}.rate.{to}\`
 * \`calendar.next.{weekday}\`
