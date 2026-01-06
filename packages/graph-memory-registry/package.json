@@ -38,7 +38,6 @@
     "build": "rimraf --glob dist/** && tsc -p tsconfig.build.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "evals": "vitest run --config vitest.config.evals.ts",
     "lint": "npx biome ci --error-on-warnings",
     "fix": "npx biome check --write",
     "prepare": "npm run build",

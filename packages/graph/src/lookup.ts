@@ -43,9 +43,9 @@ The system tries to match your query to a **built-in template** and fill the \`{
 * \`timezones.{continent}.{region}.{city}.time\`
 * \`stocks.{stock}.quote\`
 * \`currencies.{from}.rate.{to}\`
+* \`country_codes.{country_code}.holidays\`
 * \`calendar.next.{weekday}\`
 * \`calendar.in.{integer}.{unit}\`
-* \`holidays.{holiday}.next\`
 
 **Key principle:** Even if your query doesn't exactly match a template, the tool will **suggest the closest available templates**, allowing you to refine and retrieve the live data. When in doubt, try a query - the tool will guide you to the right template.`;
 

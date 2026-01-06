@@ -8,6 +8,9 @@
     "test": {
       "dependsOn": ["build"]
     },
+    "evals": {
+      "dependsOn": ["build"]
+    },
     "lint": {},
     "fix": {},
     "dev": {

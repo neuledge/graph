@@ -12,11 +12,11 @@
   tests:
     - prompt: "What time is it in Tokyo right now?"
       matches:
-        cities.tokyo.time: 1
+        timezones.asia.tokyo.time: 1
         
     - prompt: "What time is it in New York?"
       matches:
-        cities.new_york.time: 1
+        timezones.america.new_york.time: 1
 
 - category: "Future Dates"
   tests:
@@ -30,35 +30,35 @@
 
 - category: "Holidays"
   tests:
-    - prompt: "When is Thanksgiving next year?"
+    - prompt: "When is next Thanksgiving?"
       matches:
-        holidays.thanksgiving.next: 1
+        country_codes.us.holidays: 1
       suggestions:
-        - holidays.{holiday}.next
+        - country_codes.{country_code}.holidays
 
-    - prompt: "What day is Ramadan starting next year??"
+    - prompt: "What day is the next Ramadan starting?"
       matches:
-        holidays.ramadan.next: 1
+        country_codes.ae.holidays: 1
       suggestions:
-        - holidays.{holiday}.next
+        - country_codes.{country_code}.holidays
     
     - prompt: "Next jewish new year?"
       matches:
-        holidays.rosh_hashanah.next: 1
+        country_codes.il.holidays: 1
       suggestions:
-        - holidays.{holiday}.next
+        - country_codes.{country_code}.holidays
 
 - category: "Stock Price"
   tests:
     - prompt: "What is the current stock price of Apple?"
       matches:
-        stocks.apple.price: 1
-        stocks.aapl.price: 1
+        stocks.apple.quote: 1
+        stocks.aapl.quote: 1
 
     - prompt: "What is the current stock price of Spotify?"
       matches:
-        stocks.spotify.price: 1
-        stocks.spot.price: 1
+        stocks.spotify.quote: 1
+        stocks.spot.quote: 1
 
 - category: "FX Rates"
   tests:

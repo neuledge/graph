@@ -103,9 +103,8 @@ const evalLookupQuery = ({
 
           return {
             status: "ambiguous",
-            reasonCode: isMatch
-              ? "UNKNOWN_PLACEHOLDER_VALUE"
-              : "NO_TEMPLATE_MATCH",
+            reasonCode: isMatch ? "INVALID_IDENTIFIER" : "UNKNOWN_PATH",
+            reasonHint: "This is just eval mockup",
             suggestions: suggestions.map((template) => ({
               template,
             })),
@@ -114,6 +113,7 @@ const evalLookupQuery = ({
 
       const agent = new Agent({
         model,
+        providerOptions,
         tools: {
           lookup: tool(lookup),
         },
@@ -123,7 +123,6 @@ const evalLookupQuery = ({
 
       const result = await agent.generate({
         prompt,
-        providerOptions,
       });
 
       const queries = lookupSpy.mock.calls.map(([params]) => params.query);
