@@ -16,7 +16,7 @@ export class NeuledgeGraph {
     this.baseUrl =
       options.baseUrl ||
       process.env.NEULEDGE_GRAPH_BASE_URL ||
-      "https://api.graph.neuledge.com/v1";
+      "https://api.graph.neuledge.com/v0";
     this.timeout = options.timeout || 10000;
   }
 
