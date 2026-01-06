@@ -8,7 +8,7 @@
     "fix": "turbo fix",
     "prepare": "npm run build",
     "changeset": "changeset",
-    "tags": "changeset version",
+    "versions": "changeset version",
     "release": "changeset publish"
   },
   "devDependencies": {
