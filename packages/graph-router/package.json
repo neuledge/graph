@@ -1,6 +1,6 @@
 {
   "name": "@neuledge/graph-router",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Router for pattern matching and resolution of queries against data source registries.",
   "keywords": [
     "ai",
