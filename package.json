@@ -10,7 +10,7 @@
     "changeset": "changeset",
     "versions": "changeset version",
     "release": "npm login && pnpm -r publish && pnpm tags",
-    "tags": "pnpm -r exec -- bash -c 'pkg=$(jq -r .name package.json); ver=$(jq -r .version package.json); tag=\"$pkg@$ver\"; if ! git rev-parse \"$tag\" >/dev/null 2>&1; then git tag \"$tag\" && echo \"Tagged $tag\"; fi'"
+    "tags": "pnpm -r exec -- bash -c 'pkg=$(jq -r .name package.json); ver=$(jq -r .version package.json); tag=\"$pkg@$ver\"; if ! git rev-parse \"$tag\" >/dev/null 2>&1; then git tag \"$tag\" && echo \"Tagged $tag\"; fi' && git push --tags"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.10",
