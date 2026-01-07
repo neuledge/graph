@@ -1,5 +1,11 @@
 # @neuledge/graph
 
+## 0.3.3
+
+### Patch Changes
+
+- Improve error handling on CLI
+
 ## 0.3.2
 
 ### Patch Changes
