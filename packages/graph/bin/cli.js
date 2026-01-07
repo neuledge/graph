@@ -2,7 +2,7 @@
 
 const [, , command, ...args] = process.argv;
 
-const NEULEDGE_API_BASE_URL = "https://api.graph.neuledge.com/v1";
+const NEULEDGE_API_BASE_URL = "https://api.graph.neuledge.com/v0";
 
 (async () => {
   switch (command) {

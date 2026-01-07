@@ -1,6 +1,6 @@
 {
   "name": "@neuledge/graph",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Connect your LLM to live weather, stocks, and currency data without API integration work. Structured data in <100ms.",
   "keywords": [
     "llm",

@@ -1,5 +1,11 @@
 # @neuledge/graph
 
+## 0.3.4
+
+### Patch Changes
+
+- Fix base url on CLI
+
 ## 0.3.3
 
 ### Patch Changes
