@@ -69,7 +69,7 @@ const { text } = await agent.generate({
 | `What is the weather in San Francisco?`      | `San Francisco is sunny, about 68°F.`            |
 | `What time is it in Tokyo?`                  | `It's 3:42 PM JST.`                              |
 | `When is the next Monday?`                   | `The next Monday is on February 10, 2025.`       |
-| `When is Thanksgiving next year?`            | `Thanksgiving in 2026 falls on November 26.`     |
+| `When is next Thanksgiving?`                 | `Thanksgiving in 2026 falls on November 26.`     |
 | `How much is $250 in euros?`                 | `$250 equals €215.`                              |
 | `Price of Apple stock?`                      | `Apple (AAPL) is trading at $175.20`             |
 | `Latest headlines about AI`                  | *Coming soon…*                                   |
@@ -113,11 +113,11 @@ yarn add @neuledge/graph zod
 ```typescript
 import { anthropic } from "@ai-sdk/anthropic";
 import { NeuledgeGraph } from "@neuledge/graph";
-import { Experimental_Agent as Agent, stepCountIs, tool } from "ai";
+import { stepCountIs, ToolLoopAgent, tool } from "ai";
 
 const graph = new NeuledgeGraph();
 
-const agent = new Agent({
+const agent = new ToolLoopAgent({
   model: anthropic("claude-sonnet-4-5"),
   tools: {
     lookup: tool(graph.lookup),
@@ -125,7 +125,7 @@ const agent = new Agent({
   stopWhen: stepCountIs(20),
 });
 
-const { textStream } = agent.stream({
+const { textStream } = await agent.stream({
   prompt: "Compare Apple and Microsoft stock prices",
 });
 
