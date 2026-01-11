@@ -1,28 +1,32 @@
 {
   "name": "@neuledge/graph",
-  "version": "0.3.4",
-  "description": "Connect your LLM to live weather, stocks, and currency data without API integration work. Structured data in <100ms.",
+  "version": "0.3.5",
+  "description": "Real-time Knowledge Graph for AI Agents. Ground LLMs with live weather, stocks, and currency data. Structured tool-calling in <100ms.",
   "keywords": [
-    "llm",
-    "ai",
     "knowledge-graph",
-    "live-data",
-    "weather-api",
-    "stock-api",
-    "currency-exchange",
+    "graph-rag",
     "ai-agents",
-    "anthropic",
-    "openai",
-    "vercel-ai",
-    "langchain",
+    "tool-calling",
+    "llm-grounding",
     "real-time-data",
     "structured-data",
-    "tool-calling",
+    "hallucination-reduction",
+    "vercel-ai-sdk",
+    "langchain",
     "function-calling",
-    "rag",
-    "hallucination",
-    "grounding"
+    "agentic-workflows",
+    "weather-api",
+    "stock-api",
+    "currency-exchange"
   ],
+  "homepage": "https://neuledge.com/docs/graph",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neuledge/graph.git"
+  },
+  "bugs": {
+    "url": "https://github.com/neuledge/graph/issues"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",

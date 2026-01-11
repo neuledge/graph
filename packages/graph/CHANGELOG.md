@@ -1,5 +1,11 @@
 # @neuledge/graph
 
+## 0.3.5
+
+### Patch Changes
+
+- Refine copy and readme
+
 ## 0.3.4
 
 ### Patch Changes

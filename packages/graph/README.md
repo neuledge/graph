@@ -2,8 +2,10 @@
 
 # @neuledge/graph
 
+### The Semantic Data Layer for AI Agents
 
-**Stop building API integrations. Connect your LLM to live data in one line of code.**
+**Ground your LLM in real-world facts with zero API configuration.**
+
 
 [![npm version](https://img.shields.io/npm/v/@neuledge/graph.svg)](https://www.npmjs.com/package/@neuledge/graph)
 [![License](https://img.shields.io/npm/l/@neuledge/graph.svg)](https://github.com/neuledge/graph/blob/main/LICENSE)
@@ -46,7 +48,6 @@ const graph = new NeuledgeGraph();
 
 // 2. Pass the lookup tool to your AI agent
 const agent = new Agent({
-  model: 'claude-sonnet-4-5',
   tools: { lookup: tool(graph.lookup) },
 });
 
